@@ -2,6 +2,10 @@ exports.home = (req, res) => {
     res.render('home');
 };
 
+exports.tables = (req, res) => {
+    res.render('tables');
+};
+
 exports.notFound = (req, res) => {
     res.status(404);
     res.render('404', { layout: 'error' });

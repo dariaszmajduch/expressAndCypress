@@ -15,6 +15,7 @@ app.use(express.static(__dirname + '/public'));
 
 // ROUTES DEFINITIONS
 app.get('/', handlers.home);
+app.get('/tables', handlers.tables);
 
 app.use(handlers.notFound);
 app.use(handlers.serverError);
