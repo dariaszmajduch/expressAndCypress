@@ -10,54 +10,28 @@
         <col span="6">
         <col span="2" style="background-color:#9bd1db;">
     </colgroup>
+
     <tr>
-        <td>&nbsp;</td>
-        <th>Mon</th>
-        <th>Tues</th>
-        <th>Wed</th>
-        <th>Thurs</th>
-        <th>Fri</th>
-        <th>Sat</th>
-        <th>Sun</th>
+        <td></td>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+        <th>Saturday</th>
+        <th>Sunday</th>
     </tr>
+
+    {{#each partials.calendarEventsListContext}}
     <tr>
-        <th>Morning</th>
-        <td>Work</td>
-        <td>&nbsp;</td>
-        <td>Work</td>
-        <td>Work</td>
-        <td>Work</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
+        <th>{{event.daytime}}</th>
+        <td>{{event.tasks.monday}}</td>
+        <td>{{event.tasks.tuesday}}</td>
+        <td>{{event.tasks.wednesday}}</td>
+        <td>{{event.tasks.thursday}}</td>
+        <td>{{event.tasks.friday}}</td>
+        <td>{{event.tasks.saturday}}</td>
+        <td>{{event.tasks.sunday}}</td>
     </tr>
-    <tr>
-        <th>Afternoon</th>
-        <td>Doctor</td>
-        <td>Gym</td>
-        <td>&nbsp;</td>
-        <td>English</td>
-        <td>Gym</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-    </tr>
-    <tr>
-        <th>Evening</th>
-        <td>&nbsp;</td>
-        <td>English</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-    </tr>
-    <tr>
-        <th>Night</th>
-        <td>&nbsp;</td>
-        <td>Work</td>
-        <td>&nbsp;</td>
-        <td>Meeting</td>
-        <td>Meeting</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-    </tr>
+    {{/each}}
 </table>
