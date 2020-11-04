@@ -1,13 +1,13 @@
 exports.home = (req, res) => {
-    res.render('home');
+    res.render('home', { currentPage: 'home' });
 };
 
 exports.tables = (req, res) => {
-    res.render('tables');
+    res.render('tables', { currentPage: 'tables' });
 };
 
 exports.forms = (req, res) => {
-    res.render('forms');
+    res.render('forms', { currentPage: 'forms' });
 };
 
 exports.notFound = (req, res) => {

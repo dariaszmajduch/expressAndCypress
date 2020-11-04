@@ -7,9 +7,14 @@ const calendarMiddleware = require('./middleware/calendar');
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.engine('handlebars', expressHandlebars({
+const handlebarsOptions = expressHandlebars.create({
     defaultLayout: 'main',
-}));
+    helpers: {
+        unlessEq: function (arg1, arg2, options) { return (arg1 !== arg2) ? options.fn(this) : options.inverse(this); },
+    }
+});
+
+app.engine('handlebars', handlebarsOptions.engine);
 app.set('view engine', 'handlebars');
 
 app.use(express.static(__dirname + '/public'));
