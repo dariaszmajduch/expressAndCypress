@@ -20,6 +20,7 @@ app.use(calendarMiddleware);
 // ROUTES DEFINITIONS
 app.get('/', handlers.home);
 app.get('/tables', handlers.tables);
+app.get('/forms', handlers.forms);
 
 app.use(handlers.notFound);
 app.use(handlers.serverError);

@@ -6,6 +6,10 @@ exports.tables = (req, res) => {
     res.render('tables');
 };
 
+exports.forms = (req, res) => {
+    res.render('forms');
+};
+
 exports.notFound = (req, res) => {
     res.status(404);
     res.render('404', { layout: 'error' });
