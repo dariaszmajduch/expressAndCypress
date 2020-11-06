@@ -10,3 +10,61 @@ tr {
 col {
     width: 120px;
 }
+
+.my-form {
+    max-width: 500px;
+    padding: 10px 12px 10px 10px;
+}
+
+.my-form legend {
+    font-weight: bold;
+    font-style: italic;
+    padding-bottom: 3px;
+}
+
+.my-form label {
+    display: block;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+}
+
+.my-form label > span {
+    width: 25%;
+    font-weight: bold;
+    float: left;
+    padding: 1%;
+}
+
+.my-form span.required {
+    color: red;
+}
+
+.my-form .input-field,
+.my-form .select-field,
+.my-form .textarea-field {
+    box-sizing: border-box;
+    border: 1px solid #4a4a4a;
+    border-radius: 4px;
+    width: 72%;
+    padding: 2%;
+}
+
+.my-form .input-field:focus,
+.my-form .select-field:focus,
+.my-form .textarea-field:focus {
+    border: 1px solid darkblue;
+}
+
+.my-form input[type=submit] {
+    width: 100%;
+    padding: 3%;
+    background: darkblue;
+    border: 2px solid #00005d;
+    border-radius: 4px;
+    color: #fff;
+}
+
+.my-form input[type=submit]:hover {
+    background: #0000ba;
+    color: #fff;
+}

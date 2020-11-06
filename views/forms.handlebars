@@ -2,11 +2,33 @@
 
 {{> navigation}}
 
-<form action="/my-handling-form-page" method="post">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="user_name">
-    <label for="mail">E-mail:</label>
-    <input type="email" id="mail" name="user_email">
-    <label for="msg">Message:</label>
-    <textarea id="msg" name="user_message"></textarea>
-</form>
+<div class="my-form">
+    <form action="" method="post">
+        <fieldset>
+            <legend>Personal data</legend>
+            <label for="name"><span>Name <span class="required">*</span></span>
+                <input type="text" id="name" value="" class="input-field" />
+            </label>
+            <label for="email"><span>E-mail <span class="required">*</span></span>
+                <input type="email" id="email" value="" class="input-field" />
+            </label>
+            <label for="phone"><span>Phone</span>
+                <input type="text" id="phone" value="" class="input-field" />
+            </label>
+        </fieldset>
+        <fieldset>
+            <legend>Message</legend>
+            <label for="subject"><span>Subject</span>
+                <select id="subject" class="select-field">
+                    <option>First subject</option>
+                    <option>Second subject</option>
+                    <option>Third subject</option>
+                </select>
+            </label>
+            <label for="message"><span>Message <span class="required">*</span></span>
+                <textarea id="message" class="textarea-field" rows="5" ></textarea>
+            </label>
+            <input type="submit" value="Submit form" />
+        </fieldset>
+    </form>
+</div>
