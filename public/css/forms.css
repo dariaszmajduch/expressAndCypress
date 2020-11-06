@@ -1,16 +1,3 @@
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-
-tr {
-    text-align: center;
-}
-
-col {
-    width: 120px;
-}
-
 .my-form {
     max-width: 500px;
     padding: 10px 12px 10px 10px;
@@ -53,6 +40,22 @@ col {
 .my-form .select-field:focus,
 .my-form .textarea-field:focus {
     border: 1px solid darkblue;
+}
+
+.my-form .input-field:required:valid,
+.my-form .textarea-field:required:valid {
+    border: 1px solid darkgreen;
+}
+
+.my-form .input-field:required:invalid,
+.my-form .textarea-field:required:invalid {
+    border: 1px solid darkred;
+}
+
+.my-form .textarea-field {
+    height: 48px;
+    resize: none;
+    overflow: hidden;
 }
 
 .my-form input[type=submit] {

@@ -7,10 +7,10 @@
         <fieldset>
             <legend>Personal data</legend>
             <label for="name"><span>Name <span class="required">*</span></span>
-                <input type="text" id="name" value="" class="input-field" />
+                <input type="text" id="name" value="" class="input-field" required />
             </label>
             <label for="email"><span>E-mail <span class="required">*</span></span>
-                <input type="email" id="email" value="" class="input-field" />
+                <input type="email" id="email" value="" class="input-field" required />
             </label>
             <label for="phone"><span>Phone</span>
                 <input type="text" id="phone" value="" class="input-field" />
@@ -26,9 +26,11 @@
                 </select>
             </label>
             <label for="message"><span>Message <span class="required">*</span></span>
-                <textarea id="message" class="textarea-field" rows="5" ></textarea>
+                <textarea id="message" class="textarea-field" required onkeyup="expand_textarea(this)"></textarea>
             </label>
             <input type="submit" value="Submit form" />
         </fieldset>
     </form>
 </div>
+
+<script src="scripts/forms.js"></script>
