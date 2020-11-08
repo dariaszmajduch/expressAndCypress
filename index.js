@@ -22,6 +22,8 @@ app.use(express.static(__dirname + '/public'));
 // MIDDLEWARE
 app.use(calendarMiddleware);
 
+app.post('/api/add-message', handlers.api.addMessage);
+
 // ROUTES DEFINITIONS
 app.get('/', handlers.home);
 app.get('/tables', handlers.tables);

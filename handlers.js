@@ -10,6 +10,12 @@ exports.forms = (req, res) => {
     res.render('forms', { currentPage: 'forms' });
 };
 
+exports.api = {
+    addMessage: async (req, res) => {
+        console.log('Data send');
+    }
+};
+
 exports.notFound = (req, res) => {
     res.status(404);
     res.render('404', { layout: 'error' });
