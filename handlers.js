@@ -11,8 +11,18 @@ exports.forms = (req, res) => {
 };
 
 exports.api = {
-    addMessage: async (req, res) => {
-        console.log('Data send');
+    allMessages: async (req, res) => {
+        res.status(200).json({message: "Get request successful"});
+        console.log('Data get');
+    },
+    addMessage: (req, res) => {
+        console.log(req.body.name);
+        console.log(req.body.email);
+        console.log(req.body.phone);
+        console.log(req.body.subject);
+        console.log(req.body.message);
+
+        res.send({ result: 'success' });
     }
 };
 

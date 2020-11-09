@@ -1,5 +1,6 @@
 const express = require('express');
 const expressHandlebars = require('express-handlebars');
+const bodyParser = require('body-parser');
 
 const handlers = require('./handlers');
 const calendarMiddleware = require('./middleware/calendar');
@@ -19,15 +20,19 @@ app.set('view engine', 'handlebars');
 
 app.use(express.static(__dirname + '/public'));
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 // MIDDLEWARE
 app.use(calendarMiddleware);
-
-app.post('/api/add-message', handlers.api.addMessage);
 
 // ROUTES DEFINITIONS
 app.get('/', handlers.home);
 app.get('/tables', handlers.tables);
 app.get('/forms', handlers.forms);
+
+app.get('/api/all-messages', handlers.api.allMessages);
+app.post('/api/add-message', handlers.api.addMessage);
 
 app.use(handlers.notFound);
 app.use(handlers.serverError);
