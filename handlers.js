@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 exports.home = (req, res) => {
     res.render('home', { currentPage: 'home' });
 };
@@ -12,17 +14,34 @@ exports.forms = (req, res) => {
 
 exports.api = {
     allMessages: async (req, res) => {
-        res.status(200).json({message: "Get request successful"});
+        res.status(200).json(JSON.parse(fs.readFileSync('./data/messages.json').toString()));
         console.log('Data get');
     },
     addMessage: (req, res) => {
-        console.log(req.body.name);
-        console.log(req.body.email);
-        console.log(req.body.phone);
-        console.log(req.body.subject);
-        console.log(req.body.message);
+        const messagesFilePath ='./data/messages.json';
 
-        res.send({ result: 'success' });
+        const newMessage = {
+            "name": req.body.name,
+            "email": req.body.email,
+            "phone": req.body.phone,
+            "subject": req.body.subject,
+            "message": req.body.message
+        };
+
+        fs.readFile(messagesFilePath, (err) => {
+            if (err) {
+                fs.writeFileSync(messagesFilePath, '[]', (err) => { if (err) throw err; })
+            }
+
+            let existingMessages = JSON.parse(fs.readFileSync(messagesFilePath).toString());
+            existingMessages.push(newMessage);
+
+            let newMessagesJSON = JSON.stringify(existingMessages);
+            fs.writeFile(messagesFilePath, newMessagesJSON, function (err) {
+                if (err) throw err;
+                res.send({ result: 'success' });
+            });
+        });
     }
 };
 
