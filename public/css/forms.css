@@ -9,6 +9,11 @@
     padding-bottom: 3px;
 }
 
+.my-form h4 {
+    text-align: center;
+    font-weight: bold;
+}
+
 .my-form label {
     display: block;
     font-weight: bold;
