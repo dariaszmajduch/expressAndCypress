@@ -12,14 +12,19 @@ exports.forms = (req, res) => {
     res.render('forms', { currentPage: 'forms' });
 };
 
+const messagesFilePath ='./data/messages.json';
+
 exports.api = {
-    allMessages: async (req, res) => {
-        res.status(200).json(JSON.parse(fs.readFileSync('./data/messages.json').toString()));
-        console.log('Data get');
+    getAllMessages: (req, res) => {
+        fs.readFile(messagesFilePath, (err) => {
+            if (err) {
+                res.send({result: 'File not exists'});
+                return;
+            }
+            res.status(200).json(JSON.parse(fs.readFileSync('./data/messages.json').toString()));
+        });
     },
     addMessage: (req, res) => {
-        const messagesFilePath ='./data/messages.json';
-
         const newMessage = {
             "name": req.body.name,
             "email": req.body.email,
@@ -39,7 +44,7 @@ exports.api = {
             let newMessagesJSON = JSON.stringify(existingMessages);
             fs.writeFile(messagesFilePath, newMessagesJSON, function (err) {
                 if (err) throw err;
-                res.send({ result: 'success' });
+                res.send({ result: 'New message added' });
             });
         });
     }

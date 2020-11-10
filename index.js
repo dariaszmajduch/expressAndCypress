@@ -31,7 +31,7 @@ app.get('/', handlers.home);
 app.get('/tables', handlers.tables);
 app.get('/forms', handlers.forms);
 
-app.get('/api/all-messages', handlers.api.allMessages);
+app.get('/api/get-all-messages', handlers.api.getAllMessages);
 app.post('/api/add-message', handlers.api.addMessage);
 
 app.use(handlers.notFound);
