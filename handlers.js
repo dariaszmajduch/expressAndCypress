@@ -24,6 +24,22 @@ exports.api = {
             res.status(200).json(JSON.parse(fs.readFileSync(messagesFilePath).toString()));
         });
     },
+    getMessage: (req, res) => {
+        fs.readFile(messagesFilePath, (err) => {
+            if (err) {
+                res.send({result: 'File does not exist'});
+                return;
+            }
+
+            let existingMessages = JSON.parse(fs.readFileSync(messagesFilePath).toString());
+
+            let filteredMessage = existingMessages.filter(message => {
+                return message.id.toString() === req.params.id
+            });
+
+            res.status(200).json(filteredMessage);
+        });
+    },
     addMessage: (req, res) => {
         fs.readFile(messagesFilePath, (err) => {
             if (err) {
