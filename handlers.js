@@ -12,16 +12,16 @@ exports.forms = (req, res) => {
     res.render('forms', { currentPage: 'forms' });
 };
 
-const messagesFilePath ='./data/messages.json';
+const messagesFilePath = './data/messages.json';
 
 exports.api = {
     getAllMessages: (req, res) => {
         fs.readFile(messagesFilePath, (err) => {
             if (err) {
-                res.send({result: 'File not exists'});
+                res.send({result: 'File does not exist'});
                 return;
             }
-            res.status(200).json(JSON.parse(fs.readFileSync('./data/messages.json').toString()));
+            res.status(200).json(JSON.parse(fs.readFileSync(messagesFilePath).toString()));
         });
     },
     addMessage: (req, res) => {
@@ -35,7 +35,8 @@ exports.api = {
 
         fs.readFile(messagesFilePath, (err) => {
             if (err) {
-                fs.writeFileSync(messagesFilePath, '[]', (err) => { if (err) throw err; })
+                res.send({result: 'File does not exist'});
+                return;
             }
 
             let existingMessages = JSON.parse(fs.readFileSync(messagesFilePath).toString());
