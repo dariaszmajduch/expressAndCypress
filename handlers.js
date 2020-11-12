@@ -74,6 +74,19 @@ exports.api = {
             });
         });
     },
+    deleteAllMessages: (req, res) => {
+        fs.readFile(messagesFilePath, (err) => {
+            if (err) {
+                res.send({result: 'File does not exist'});
+                return;
+            }
+
+            fs.writeFile(messagesFilePath, '[]', (err) => {
+                if (err) throw err;
+                res.send({ result: 'All messages deleted' });
+            });
+        });
+    },
     deleteMessage: (req, res) => {
         fs.readFile(messagesFilePath, (err) => {
             if (err) {
