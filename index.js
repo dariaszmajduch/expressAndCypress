@@ -42,6 +42,7 @@ app.get('/forms', handlers.forms);
 app.get('/api/get-all-messages', handlers.api.getAllMessages);
 app.get('/api/get-message/:id', handlers.api.getMessage);
 app.post('/api/add-message', handlers.api.addMessage);
+app.delete('/api/delete-message/:id', handlers.api.deleteMessage);
 
 app.use(handlers.notFound);
 app.use(handlers.serverError);

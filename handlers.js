@@ -18,7 +18,8 @@ exports.api = {
     getAllMessages: (req, res) => {
         fs.readFile(messagesFilePath, (err) => {
             if (err) {
-                res.send({result: 'File does not exist'});
+                res.status(404);
+                res.send({ result: 'File does not exist' });
                 return;
             }
             res.status(200).json(JSON.parse(fs.readFileSync(messagesFilePath).toString()));
@@ -27,7 +28,7 @@ exports.api = {
     getMessage: (req, res) => {
         fs.readFile(messagesFilePath, (err) => {
             if (err) {
-                res.send({result: 'File does not exist'});
+                res.send({ result: 'File does not exist' });
                 return;
             }
 
@@ -37,13 +38,20 @@ exports.api = {
                 return message.id.toString() === req.params.id
             });
 
+            if (filteredMessage.length === 0) {
+                res.status(404);
+                res.send({ result: 'Message does not exist'});
+                return;
+            }
+
             res.status(200).json(filteredMessage);
         });
     },
     addMessage: (req, res) => {
         fs.readFile(messagesFilePath, (err) => {
             if (err) {
-                res.send({result: 'File does not exist'});
+                res.status(404);
+                res.send({ result: 'File does not exist' });
                 return;
             }
 
@@ -60,9 +68,39 @@ exports.api = {
             existingMessages.push(newMessage);
 
             let newMessagesJSON = JSON.stringify(existingMessages);
-            fs.writeFile(messagesFilePath, newMessagesJSON, function (err) {
+            fs.writeFile(messagesFilePath, newMessagesJSON, (err) => {
                 if (err) throw err;
                 res.send({ result: 'New message added' });
+            });
+        });
+    },
+    deleteMessage: (req, res) => {
+        fs.readFile(messagesFilePath, (err) => {
+            if (err) {
+                res.send({ result: 'File does not exist' });
+                return;
+            }
+
+            let existingMessages = JSON.parse(fs.readFileSync(messagesFilePath).toString());
+
+            const index = existingMessages.findIndex((message) => {
+                // change req.params.id to number!
+                return message.id.toString() === req.params.id
+            });
+
+            if (index === -1) {
+                res.status(404);
+                res.send({ result: 'Message with this id does not exist'});
+                return;
+            }
+
+            existingMessages.splice(index, 1);
+
+            let newMessagesListJSON = JSON.stringify(existingMessages);
+            fs.writeFile(messagesFilePath, newMessagesListJSON, (err) => {
+                if (err) throw err;
+                res.status(200);
+                res.send({ result: 'Message deleted' });
             });
         });
     }
