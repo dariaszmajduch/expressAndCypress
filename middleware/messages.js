@@ -1,13 +1,17 @@
 const fs = require('fs');
+const handlers = require('../handlers');
 
 const messagesFilePath = './data/messages.json';
+
+const fileNotExistingError = 'File ./data/messages.json does not exist';
+const messageNotExistingError = 'Message with this id does not exist';
+const modifyFileError = 'Modifying file ./data/messages.json fails';
 
 module.exports = {
     getAllMessages(req, res) {
         fs.readFile(messagesFilePath, (err) => {
             if (err) {
-                res.status(404);
-                res.send({result: 'File does not exist'});
+                handlers.serverError(fileNotExistingError, req, res);
                 return;
             }
             res.status(200).json(JSON.parse(fs.readFileSync(messagesFilePath).toString()));
@@ -16,19 +20,18 @@ module.exports = {
     getMessage: (req, res) => {
         fs.readFile(messagesFilePath, (err) => {
             if (err) {
-                res.send({ result: 'File does not exist' });
+                handlers.serverError(fileNotExistingError, req, res);
                 return;
             }
 
             let existingMessages = JSON.parse(fs.readFileSync(messagesFilePath).toString());
 
             let filteredMessage = existingMessages.filter(message => {
-                return message.id.toString() === req.params.id
+                return message.id === parseInt(req.params.id)
             });
 
             if (filteredMessage.length === 0) {
-                res.status(404);
-                res.send({ result: 'Message does not exist'});
+                handlers.serverError(messageNotExistingError, req, res);
                 return;
             }
 
@@ -38,8 +41,7 @@ module.exports = {
     addMessage: (req, res) => {
         fs.readFile(messagesFilePath, (err) => {
             if (err) {
-                res.status(404);
-                res.send({ result: 'File does not exist' });
+                handlers.serverError(fileNotExistingError, req, res);
                 return;
             }
 
@@ -57,41 +59,45 @@ module.exports = {
 
             let newMessagesJSON = JSON.stringify(existingMessages);
             fs.writeFile(messagesFilePath, newMessagesJSON, (err) => {
-                if (err) throw err;
-                res.send({ result: 'New message added' });
+                if (err) {
+                    handlers.serverError(modifyFileError, req, res);
+                    return;
+                }
+                res.status(200).send({ result: 'New message added' });
             });
         });
     },
     deleteAllMessages: (req, res) => {
         fs.readFile(messagesFilePath, (err) => {
             if (err) {
-                res.send({result: 'File does not exist'});
+                handlers.serverError(fileNotExistingError, req, res);
                 return;
             }
 
             fs.writeFile(messagesFilePath, '[]', (err) => {
-                if (err) throw err;
-                res.send({ result: 'All messages deleted' });
+                if (err) {
+                    handlers.serverError(modifyFileError, req, res);
+                    return;
+                }
+                res.status(200).send({ result: 'All messages deleted' });
             });
         });
     },
     deleteMessage: (req, res) => {
         fs.readFile(messagesFilePath, (err) => {
             if (err) {
-                res.send({ result: 'File does not exist' });
+                handlers.serverError(fileNotExistingError, req, res);
                 return;
             }
 
             let existingMessages = JSON.parse(fs.readFileSync(messagesFilePath).toString());
 
             const index = existingMessages.findIndex((message) => {
-                // change req.params.id to number!
-                return message.id.toString() === req.params.id
+                return message.id === parseInt(req.params.id)
             });
 
             if (index === -1) {
-                res.status(404);
-                res.send({ result: 'Message with this id does not exist'});
+                handlers.serverError(messageNotExistingError, req, res);
                 return;
             }
 
@@ -99,9 +105,11 @@ module.exports = {
 
             let newMessagesListJSON = JSON.stringify(existingMessages);
             fs.writeFile(messagesFilePath, newMessagesListJSON, (err) => {
-                if (err) throw err;
-                res.status(200);
-                res.send({ result: 'Message deleted' });
+                if (err) {
+                    handlers.serverError(modifyFileError, req, res);
+                    return;
+                }
+                res.status(200).send({ result: 'Message deleted' });
             });
         });
     }
