@@ -29,6 +29,7 @@ document.getElementById('addMessageForm').addEventListener('submit', event => {
             </form>`
         })
         .catch(err => {
-            console.log('Error occurs');
+            // navigate to 500 page with err log
+            console.log('Error occurs ' + err);
         });
 });
