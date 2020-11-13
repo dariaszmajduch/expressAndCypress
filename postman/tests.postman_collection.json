@@ -1,0 +1,283 @@
+{
+	"info": {
+		"_postman_id": "a631c158-a28d-4766-9bf2-0a691ab7f416",
+		"name": "tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "No messages are available",
+			"item": [
+				{
+					"name": "Delete all messages",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5e573c56-aa3d-4858-95cb-d7f53882d881",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/delete-all-messages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"delete-all-messages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all messages",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9a0a1897-7a1f-4b9a-9fd0-798cce2d51ef",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Return '[]' when 0 messages available\", function () {",
+									"  pm.response.to.have.status(200);",
+									"  pm.expect(pm.response.text()).to.include(\"[]\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/get-all-messages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"get-all-messages"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "All added messages are available",
+			"item": [
+				{
+					"name": "Delete all messages",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fc34d466-927a-4312-8378-6164cdf9da5b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/delete-all-messages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"delete-all-messages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new message A",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "577697ec-3cd6-4e08-8753-0f152106d458",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Return 'New message added' message\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result).to.eql('New message added');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/add-message?name=aaa&email=aa@aa.aa&subject=SubjectA&message=TestA",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"add-message"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "aaa"
+								},
+								{
+									"key": "email",
+									"value": "aa@aa.aa"
+								},
+								{
+									"key": "subject",
+									"value": "SubjectA"
+								},
+								{
+									"key": "message",
+									"value": "TestA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new message B",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8e454ed2-9e2b-4847-ba78-524cdd014b2c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Return 'New message added' message\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result).to.eql('New message added');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/add-message?name=bbb&email=bb@bb.bb&subject=Subject B&message=TestB",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"add-message"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "bbb"
+								},
+								{
+									"key": "email",
+									"value": "bb@bb.bb"
+								},
+								{
+									"key": "subject",
+									"value": "Subject B"
+								},
+								{
+									"key": "message",
+									"value": "TestB"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all messages",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bd7f8071-58c5-40e5-b65f-05592f3fbe6b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"2 messages are available\", function () {",
+									"  pm.response.to.have.status(200);",
+									"  var jsonData = pm.response.json();",
+									"  pm.expect(jsonData.length).to.eql(2);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/get-all-messages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"get-all-messages"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
